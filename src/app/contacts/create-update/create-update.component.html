@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>{{formTitle}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>First Name</mat-label>
+    <input matInput required [(ngModel)]="currentContact.firstName"/>
+  </mat-form-field>
+  <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput [(ngModel)]="currentContact.lastName"/>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label> Email</mat-label>
+        <input matInput email required [(ngModel)]="currentContact.email"/>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Phone</mat-label>
+        <input matInput [(ngModel)]="currentContact.phone"/>
+    </mat-form-field>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel </button>
+  <button mat-button cdkFocusInitial (click)="saveContact()"> Save</button>
+</div>

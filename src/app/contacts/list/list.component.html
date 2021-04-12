@@ -1,0 +1,17 @@
+<h1>
+    {{title}}
+    <button mat-raised-button color="primary" (click)="openDialog()" class="add-new-contact">Add new contact</button>
+</h1>
+<hr>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container [matColumnDef]="column.id" *ngFor="let column of tableHeaders">
+        <th mat-header-cell *matHeaderCellDef> {{column.label}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[column.id]}} </td>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef> Edit </th>
+        <td mat-cell *matCellDef="let element"> <button (click)="openDialog(element.id)">Edit</button> </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
