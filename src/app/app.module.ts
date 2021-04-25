@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { ListComponent } from './contacts/list/list.component';
 import { CreateUpdateComponent } from './contacts/create-update/create-update.component';
-import {CdkTableModule} from '@angular/cdk/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 
@@ -28,7 +27,6 @@ import { ContactsService } from './contacts/contacts.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    CdkTableModule,
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,

@@ -2,7 +2,7 @@
 <div mat-dialog-content>
   <mat-form-field>
     <mat-label>First Name</mat-label>
-    <input matInput required [(ngModel)]="currentContact.firstName"/>
+    <input matInput required autofocus [(ngModel)]="currentContact.firstName"/>
   </mat-form-field>
   <mat-form-field>
       <mat-label>Last Name</mat-label>
@@ -20,5 +20,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel </button>
-  <button mat-button cdkFocusInitial (click)="saveContact()"> Save</button>
+  <button mat-button (click)="saveContact()"> Save</button>
 </div>

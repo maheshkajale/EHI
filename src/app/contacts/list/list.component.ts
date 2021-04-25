@@ -25,14 +25,12 @@ export class ListComponent implements OnInit {
   contact: any;
   dataSource: any;
   constructor(public contactService: ContactsService, public dialog: MatDialog) {
-    this.dataSource = this.contactService.contacts.filter((el: ContactElement) => {
-      return el.status === this.contactService.status[0];
-    });
+    this.updateList();
   }
   ngOnInit(): void {
     this.title = 'Manage Contacts';
   }
-  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email', 'edit'];
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email', 'edit', 'delete'];
   tableHeaders = [
     {id: 'id', label: 'Id'},
     {id: 'firstName', label: 'First Name'},
@@ -48,7 +46,11 @@ export class ListComponent implements OnInit {
       });
       data = {edit: data.pop()};
     } else {
-      data = {add: this.contactService.contacts.pop().id + 1};
+      let id = 0;
+      this.contactService.contacts.forEach((el: any) => {
+        id = el.id > id ? el.id : id; 
+      });
+      data = {add: ++id};
     }
     const dialogRef = this.dialog.open(CreateUpdateComponent, {
       width: '350px',
@@ -57,20 +59,32 @@ export class ListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.add) {
-        this.contactService.contacts = [...this.dataSource, result.add];
-        this.dataSource = this.contactService.contacts.filter((el: ContactElement) => {
-          return el.status === this.contactService.status[0];
-        });
+        this.contactService.contacts.push(result.add);
+        this.updateList();
       } else if (result && result.edit) {
         this.contactService.contacts.map((el: ContactElement) => {
           if (el.id === result.edit.id) {
             el = result.edit;
           }
         });
-        this.dataSource = this.contactService.contacts.filter((el: ContactElement) => {
-          return el.status === this.contactService.status[0];
-        });
+        this.updateList();
       }
     });
+  }
+
+  deleteContact(id: number) {
+    this.contactService.contacts.map((el: ContactElement) => {
+      if (el.id === id) {
+        el.status = this.contactService.status[1];
+      }
+    });
+    this.updateList();
+  }
+
+  updateList() {
+    this.dataSource = this.contactService.contacts.filter((el: ContactElement) => {
+      return el.status === this.contactService.status[0];
+    });
+    this.contactService.updateStorage();
   }
 }
